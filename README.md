@@ -2,6 +2,9 @@
 
 一个集合了meteor/angular/uirouter/bootstrap等模块的种子项目。
 
+
+> 暂时还不能使用，完善中……
+
 ##第三方模块
 
 * meteor v0.9.4
@@ -51,7 +54,7 @@
 
 在引入`meteor-angular`后，`template.html`会被自动注入到angular的`$templateCache`，你可以像使用普通的angular template一样使用它。
 
-> 为避免和meteor自带模板引擎产生冲突，angular的模板引擎识别符修改为`[[`和`]]`，同时meteor自带模板引擎标识符`{{`和`}}`也可以正常使用。
+> 为避免和meteor自带模板引擎产生冲突，angular的模板引擎标识符修改为`[[`和`]]`，同时meteor自带模板引擎标识符`{{`和`}}`也可以正常使用。
 
 ## 文件加载顺序
 
@@ -63,7 +66,34 @@
 
 javascript和css文件加载顺序会按照以下规则：
 
-* 先加载最底层目录的文件，最后加载顶层目录文件
-* 如果在同一个目录，则按照文件名顺序加载
-* lib目录文件会移动到加载列表最前面
-* 匹配`main.*`的文件会移动到加载列表最后面
+* 优先加载子目录的文件
+* 同级目录文件按文件名排序先后加载
+* 经过上述处理后，优先加载`lib`目录
+* 匹配`main.*`的文件最后加载
+
+
+## 反应式
+
+触发反应式的变量：
+
+* Session 变量
+* Collections中的数据库查询
+* Meteor.status
+* subscription handle中的ready()方法
+* Meteor.user
+* Meteor.userId
+* Meteor.loggingIn
+
+反应式函数：
+
+* Templates
+* Tracker.autorun
+* Blaze.render && Blaze.renderWithData
+
+以下函数会返回一个对象和stop方法，用于停止
+
+* Tracker.autorun
+* Meteor.subscribe
+* 游标`sursors`的 `observe()` 和 `observerChanges()` 方法
+
+
